@@ -5,7 +5,6 @@ in base // {
 
   imports = base.imports ++ [ # Include the results of the hardware scan.
     ./modules/qemu.nix
-    <home-manager/nixos>
   ];
 
   # Use the systemd-boot EFI boot loader.
