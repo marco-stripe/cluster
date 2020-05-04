@@ -5,8 +5,7 @@
     ../hardware-configuration.nix
   ];
 
-  environment.systemPackages = base.environment.systemPackages
-    ++ (with pkgs; [ home-manager ]);
+  environment.systemPackages = (with pkgs; [ home-manager ]);
 
   boot = {
     kernelPackages = pkgs.linuxPackages_rpi4;
