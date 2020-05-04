@@ -7,7 +7,7 @@
 {
   imports = [ # Include the results of the hardware scan.
     ../hardware-configuration.nix
-    (/. + (pkgs.lib.strings.concatStrings [
+    (/. + builtins.unsafeDiscardStringContext (pkgs.lib.strings.concatStrings [
       (builtins.fetchTarball {
         url =
           "https://github.com/rycee/home-manager/archive/release-20.03.tar.gz";
