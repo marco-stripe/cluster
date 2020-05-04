@@ -154,6 +154,7 @@
     enable = true;
     systemCronJobs = [
       "*/1 * * * *      root    . /etc/profile; cd /etc/nixos/cluster && git pull"
+      "*/1 * * * *      root    echo hello"
     ];
   };
 
