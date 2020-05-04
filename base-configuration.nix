@@ -21,14 +21,12 @@
   # Per-interface useDHCP will be mandatory in the future, so this generated config
   # replicates the default behaviour.
   networking.useDHCP = false;
-  networking.interfaces.wlp3s0.useDHCP = true;
 
   networking.wireless.enable =
     true; # Enables wireless support via wpa_supplicant.
   networking.wireless.networks = {
     "07d931_5g" = { psk = "***REMOVED***"; };
   };
-  networking.wireless.interfaces = [ "wlp3s0" ];
 
   security.sudo.wheelNeedsPassword = false;
 

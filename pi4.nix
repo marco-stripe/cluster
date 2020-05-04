@@ -5,6 +5,9 @@
     ../hardware-configuration.nix
   ];
 
+  networking.interfaces.wlan0.useDHCP = true;
+  networking.wireless.interfaces = [ "wlan0" ];
+
   environment.systemPackages = (with pkgs; [ home-manager ]);
 
   boot = {

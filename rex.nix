@@ -6,6 +6,9 @@
     ./modules/qemu.nix
   ];
 
+  networking.interfaces.wlp3s0.useDHCP = true;
+  networking.wireless.interfaces = [ "wlp3s0" ];
+
   # Use the systemd-boot EFI boot loader.
   boot = {
     loader.systemd-boot.enable = true;
