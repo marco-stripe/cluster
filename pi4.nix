@@ -2,7 +2,6 @@
   networking.hostName = "pi4"; # Define your hostname.
   imports = [ # Include the results of the hardware scan.
     ./base-configuration.nix
-    ../hardware-configuration.nix
   ];
 
   networking.interfaces.wlan0.useDHCP = true;

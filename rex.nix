@@ -1,7 +1,6 @@
 { config, pkgs, ... }: {
   networking.hostName = "rex"; # Define your hostname.
-
-  imports = base.imports ++ [ # Include the results of the hardware scan.
+  imports = [ # Include the results of the hardware scan.
     ./base-configuration.nix
     ./modules/qemu.nix
   ];
