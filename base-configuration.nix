@@ -4,8 +4,7 @@
 
 { config, pkgs, ... }:
 
-let pureZsh = pkgs.callPackage ./pkgs/pure-zsh.nix { };
-in {
+{
   imports = [ # Include the results of the hardware scan.
     ../hardware-configuration.nix
     ./modules/qemu.nix
@@ -43,7 +42,7 @@ in {
 
   # List packages installed in system profile. To search, run:
   # $ nix search wget
-  environment.systemPackages = with pkgs; [ wget vim git pureZsh zsh ];
+  environment.systemPackages = with pkgs; [ wget vim git zsh ];
 
   # Configure network proxy if necessary
   # networking.proxy.default = "http://user:password@proxy:port/";
