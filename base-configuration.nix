@@ -149,6 +149,7 @@
   home-manager.users.marco = import ./home/home.nix;
 
   # Pull configuration from github every 5 minutes
+
   services.cron = {
     enable = true;
     systemCronJobs = [
