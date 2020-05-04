@@ -1,4 +1,4 @@
 echo "Starting Post merge"
 git submodule update --init;
-nixos-rebuild test -I nixpkgs=/home/marco/nixpkgs
+nixos-rebuild test
 echo "Done post merge"
