@@ -7,15 +7,7 @@
 {
   imports = [ # Include the results of the hardware scan.
     ../hardware-configuration.nix
-    (/. + builtins.unsafeDiscardStringContext (pkgs.lib.strings.concatStrings [
-      (builtins.fetchTarball {
-        url =
-          "https://github.com/rycee/home-manager/archive/release-20.03.tar.gz";
-        sha256 = "sha256:1cfh0aj60qriadvn5xvsp24p1xr06g68m3pfvzwahv2bd2cg261r";
-      })
-      "/nixos"
-    ]))
-
+    ./home-manager/nixos
   ];
 
   nixpkgs.config.allowUnfree = true;
