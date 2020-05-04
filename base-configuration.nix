@@ -151,7 +151,9 @@
   # Pull configuration from github every 5 minutes
   services.cron = {
     enable = true;
-    systemCronJobs = [ "*/5 * * * *      root    date >> /tmp/cron.log" ];
+    systemCronJobs = [
+      "*/1 * * * *      root    cd /etc/nixos/cluster && git pull >> /tmp/cron.log"
+    ];
   };
 
   # This value determines the NixOS release from which the default
