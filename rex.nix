@@ -1,4 +1,4 @@
-args@{ config, pkgs, ... }: {
+{ config, pkgs, ... }: {
   networking.hostName = "rex"; # Define your hostname.
 
   imports = base.imports ++ [ # Include the results of the hardware scan.

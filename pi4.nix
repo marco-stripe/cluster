@@ -1,10 +1,9 @@
-args@{ config, pkgs, ... }:
-let base = (import ./base-configuration.nix args);
-in base // {
+{ config, pkgs, ... }: {
+  networking.hostName = "pi4"; # Define your hostname.
   imports = [ # Include the results of the hardware scan.
+    ./base-configuration.nix
     ../hardware-configuration.nix
   ];
-  networking.hostName = "pi4"; # Define your hostname.
 
   environment.systemPackages = base.environment.systemPackages
     ++ (with pkgs; [ home-manager ]);
@@ -19,5 +18,4 @@ in base // {
       };
     };
   };
-
 }
