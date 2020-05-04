@@ -7,7 +7,7 @@
 let pureZsh = pkgs.callPackage ./pkgs/pure-zsh.nix { };
 in {
   imports = [ # Include the results of the hardware scan.
-    ./hardware-configuration.nix
+    ../hardware-configuration.nix
     ./qemu.nix
     <home-manager/nixos>
   ];
