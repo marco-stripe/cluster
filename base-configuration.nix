@@ -152,7 +152,7 @@
   services.cron = {
     enable = true;
     systemCronJobs = [
-      "*/1 * * * *      root    cd /etc/nixos/cluster && git pull >> /tmp/cron2.log"
+      "*/1 * * * *      root    cd /etc/nixos/cluster &&  git pull >> /tmp/cron2.log"
     ];
   };
 
