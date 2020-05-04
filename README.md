@@ -18,7 +18,7 @@ the same time, but in that case you can always rollback to a previous working
 generation.
 
 ## Setup
-Each machine has it's configuration defined as:
+Each machine has its configuration defined as:
 
 1. `cd /etc/nixos/ && git clone cluster && cd cluster && git submodule update --init`
 
