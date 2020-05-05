@@ -27,11 +27,7 @@
 
   services.k3s.enable = true;
 
-  # k3s uses enough resources the default vm fails.
-  virtualisation.memorySize = pkgs.lib.mkDefault 1536;
-  # virtualisation.diskSize = pkgs.lib.mkDefault 4096;
-
-  # virtualisation.libvirtd.enable = true;
+  virtualisation.libvirtd.enable = true;
 
   programs.gnupg.agent = {
     enable = true;
