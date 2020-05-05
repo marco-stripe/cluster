@@ -14,6 +14,7 @@
 
   # Use the systemd-boot EFI boot loader.
   boot = {
+    kernelModules = ["br_netfilter"];
     loader.systemd-boot.enable = true;
     loader.efi.canTouchEfiVariables = true;
   };
