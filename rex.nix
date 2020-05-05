@@ -49,4 +49,7 @@
   # Enable touchpad support.
   services.xserver.libinput.enable = true;
 
+  networking.wireless.enable =
+    true; # Enables wireless support via wpa_supplicant.
+
 }

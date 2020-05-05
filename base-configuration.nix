@@ -20,8 +20,6 @@
 
   networking.useDHCP = false;
 
-  networking.wireless.enable =
-    true; # Enables wireless support via wpa_supplicant.
   networking.wireless.networks = {
     "07d931_5g" = { psk = "***REMOVED***"; };
   };
