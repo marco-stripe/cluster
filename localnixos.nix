@@ -1,5 +1,6 @@
 { config, pkgs, ... }: {
   networking.hostName = "localnixos"; # Define your hostname.
+  networking.wireless.enable = false;
   imports = [ # Include the results of the hardware scan.
     ./base-configuration.nix
     ./modules/qemu.nix
