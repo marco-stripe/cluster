@@ -29,7 +29,7 @@
 
   # k3s uses enough resources the default vm fails.
   virtualisation.memorySize = pkgs.lib.mkDefault 1536;
-  virtualisation.diskSize = pkgs.lib.mkDefault 4096;
+  # virtualisation.diskSize = pkgs.lib.mkDefault 4096;
 
   # virtualisation.libvirtd.enable = true;
 
