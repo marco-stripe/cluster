@@ -1,14 +1,19 @@
-{ config, pkgs, ... }: {
+{ config, pkgs, ... }:
+let
+  kubeMasterIP = "10.1.1.2";
+  kubeMasterHostname = "api.kube";
+  kubeMasterAPIServerPort = 443;
+in {
   networking.hostName = "localnixos"; # Define your hostname.
   networking.wireless.enable = false;
   imports = [ # Include the results of the hardware scan.
     ./base-configuration.nix
     ./modules/qemu.nix
-    ./nixpkgs/nixos/modules/services/cluster/k3s
+    # ./nixpkgs/nixos/modules/services/cluster/k3s
   ];
 
   # Use k3s from the latest nixpkgs, but otherwise keep a stable system
-  nixpkgs = { overlays = [ (import ./overlays/k3s) ]; };
+  # nixpkgs = { overlays = [ (import ./overlays/k3s) ]; };
 
   networking.interfaces.enp0s5.useDHCP = true;
   # Use the GRUB 2 boot loader.
@@ -29,14 +34,13 @@
     aarch64 = true;
   };
 
-  services.k3s.enable = true;
+  # services.k3s.enable = true;
 
   virtualisation.libvirtd.enable = true;
 
   programs.gnupg.agent = {
     enable = true;
     enableSSHSupport = true;
-    # pinentryFlavor = "gnome3";
   };
 
   # Enable the KDE Desktop Environment.
@@ -48,4 +52,26 @@
   services.xserver.layout = "us";
   # Enable touchpad support.
   services.xserver.libinput.enable = true;
+
+  # resolve master hostname
+  networking.extraHosts = "${kubeMasterIP} ${kubeMasterHostname}";
+
+  # packages for administration tasks
+  environment.systemPackages = with pkgs; [ kompose kubectl kubernetes ];
+
+  services.kubernetes = {
+    roles = [ "master" "node" ];
+    masterAddress = kubeMasterHostname;
+    easyCerts = true;
+    apiserver = {
+      securePort = kubeMasterAPIServerPort;
+      advertiseAddress = kubeMasterIP;
+    };
+
+    # use coredns
+    addons.dns.enable = true;
+
+    # needed if you use swap
+    kubelet.extraOpts = "--fail-swap-on=false";
+  };
 }
