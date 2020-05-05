@@ -20,13 +20,15 @@ generation.
 ## Setup
 Each machine has its configuration defined as:
 
-1. `cd /etc/nixos/ && git clone cluster && cd cluster && git submodule update --init`
+1. `cd /etc/nixos/ && git clone https://github.com/MarcoPolo/cluster && cd cluster && git submodule update --init`
 
-1. Define your `configuration.nix` to point to the cluster configs. i.e.:
+2. Setup post-merge hook: `cp post-merge .git/hooks/`
+
+3. Define your `configuration.nix` to point to the cluster configs. i.e.:
 ```
 args@{ config, pkgs, options, ... }: import ./cluster/<machine-specific-config>.nix args
 ```
 
-1. Initially load the configuration: `sudo nixos-rebuild test`
+4. Initially load the configuration: `sudo nixos-rebuild test`
 
 Done!
