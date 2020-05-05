@@ -31,7 +31,7 @@
 
   services.k3s.enable = true;
 
-  # virtualisation.libvirtd.enable = true;
+  virtualisation.libvirtd.enable = true;
 
   programs.gnupg.agent = {
     enable = true;
