@@ -7,4 +7,5 @@ self: super: {
     configfile = ../rpi4_kvm.config;
     allowImportFromDerivation = true;
   };
+  linuxPackages_rpi4_kvm = linuxPackagesFor pkgs.linux_rpi4_kvm;
 }
