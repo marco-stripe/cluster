@@ -20,10 +20,10 @@
   };
 
   # Allow aarch64 emulation with qemu
-  qemu-user = {
-    arm = true;
-    aarch64 = true;
-  };
+  # qemu-user = {
+  #   arm = true;
+  #   aarch64 = true;
+  # };
 
   services.k3s.enable = true;
 
