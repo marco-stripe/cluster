@@ -12,6 +12,22 @@
   networking.interfaces.wlp3s0.useDHCP = true;
   networking.wireless.interfaces = [ "wlp3s0" ];
 
+  # Distributed Builds
+  nix.buildMachines = [{
+    hostName = "builder";
+    system = "aarch64-linux";
+    # if the builder supports building for multiple architectures, 
+    # replace the previous line by, e.g.,
+    # systems = ["x86_64-linux" "aarch64-linux"];
+    maxJobs = 1;
+    speedFactor = 2;
+    supportedFeatures =
+      [ "nixos-test" "benchmark" "big-parallel" ]; # kvm not supported :(
+    mandatoryFeatures = [ ];
+  }];
+
+  nix.distributedBuilds = true;
+
   # Use the systemd-boot EFI boot loader.
   boot = {
     kernelModules = [ "br_netfilter" ];
