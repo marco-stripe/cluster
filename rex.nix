@@ -12,6 +12,7 @@
   networking.interfaces.wlp3s0.useDHCP = true;
   networking.wireless.interfaces = [ "wlp3s0" ];
 
+  # TODO add ssh config to home-manager
   # Distributed Builds
   nix.buildMachines = [{
     hostName = "builder";
