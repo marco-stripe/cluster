@@ -1,5 +1,9 @@
 # To build an installation:
 # nix-build -j0 '<nixpkgs/nixos>' -A config.system -I nixos-config=/etc/nixos/cluster/pi4_kvm.nix -I nixpkgs=/home/marco/nixpkgs -I nixpkgs-overlays=/etc/nixos/cluster/overlays/rpi4 --argstr system aarch64-linux         
+# To build on mac (Notice the 'ssh://builder aarch64-linux') this tells nix the
+# machine is aarch64-linux
+# nix-build -j0 '<nixpkgs/nixos>' -A config.system -I nixos-config=./pi4_kvm.nix -I nixpkgs=~/localnix/local-nixpkgs -I nixpkgs-overlays=./overlays/rpi4 --argstr system aarch64-linux --builders 'ssh://builder aarch64-linux'
+
 { config, pkgs, ... }: {
   networking.hostName = "pi4"; # Define your hostname.
   imports = [ ./pi4_hardware_config.nix ./home-manager/nixos ];
