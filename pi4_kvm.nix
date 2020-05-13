@@ -15,6 +15,20 @@
       [ (import ./overlays/k3s) (import ./overlays/rpi4/rpi4-kvm.nix) ];
   };
 
+  # Distributed Builds
+  nix.buildMachines = [{
+    hostName = "builder";
+    system = "aarch64-linux";
+    # if the builder supports building for multiple architectures, 
+    # replace the previous line by, e.g.,
+    # systems = ["x86_64-linux" "aarch64-linux"];
+    maxJobs = 1;
+    speedFactor = 2;
+    supportedFeatures =
+      [ "nixos-test" "benchmark" "big-parallel" ]; # kvm not supported :(
+    mandatoryFeatures = [ ];
+  }];
+
   networking.interfaces.wlan0.useDHCP = true;
   networking.wireless.interfaces = [ "wlan0" ];
 
