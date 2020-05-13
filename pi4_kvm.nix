@@ -3,6 +3,14 @@
 # To build on mac (Notice the 'ssh://builder aarch64-linux') this tells nix the
 # machine is aarch64-linux
 # nix-build -j0 '<nixpkgs/nixos>' -A config.system -I nixos-config=./pi4_kvm.nix -I nixpkgs=~/localnix/local-nixpkgs -I nixpkgs-overlays=./overlays/rpi4 --argstr system aarch64-linux --builders 'ssh://builder aarch64-linux'
+#
+# Updating the boot config:
+# 1. umount /boot
+# 2. nixos-rebuild switch
+# 3. cp -r /boot ~/boot-new
+# 4. mount /dev/mmcblk0p1 /boot
+# 5. rm -rf /boot/*
+# 6. mv ~/boot-new/* /boot/
 
 { config, pkgs, ... }: {
   networking.hostName = "pi4"; # Define your hostname.
