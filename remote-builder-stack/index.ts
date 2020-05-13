@@ -70,6 +70,6 @@ const metricAlarm = new aws.cloudwatch.MetricAlarm("sleepingBuilder", {
   namespace: "AWS/EC2",
   period,
   statistic: "Average",
-  threshold: 10,
+  threshold: 20,
   alarmDescription: "If the worker isn't doing anything, bring it down."
 });
