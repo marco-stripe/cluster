@@ -24,7 +24,7 @@ const group = new aws.ec2.SecurityGroup("remoteBuilder-allowSSH", {
   ]
 });
 
-const server = new aws.ec2.Instance("remote-builder-2", {
+const server = new aws.ec2.Instance("remote-builder1", {
   // @ts-ignore - a real instance type I swear!
   instanceType: "a1.metal",
   securityGroups: [group.name], // reference the security group resource above
@@ -45,7 +45,7 @@ const localNixpkgs = "$HOME/localnix/local-nixpkgs"
 // the builders arg is explained here: https://nixos.org/nix/manual/#chap-distributed-builds
 export const nixBuildPi4KVM = server.publicIp.apply((publicIP: string) => `\
 nix-build -j0 '<nixpkgs/nixos>' \
-  -A config.system \
+  -A system \
   -I nixos-config=../pi4_kvm.nix \
   -I nixpkgs=${localNixpkgs} \
   -I nixpkgs-overlays=../overlays/rpi4 \
