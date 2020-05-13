@@ -37,7 +37,7 @@ const server = new aws.ec2.Instance("remote-builder1", {
 
 export const instanceID = server.id
 
-const localNixpkgs = "$HOME/localnix/local-nixpkgs"
+const localNixpkgs = "$HOME/nixpkgs"
 
 // Build the pi4 kernel with KVM enabld
 // Breaking down the command a bit:
