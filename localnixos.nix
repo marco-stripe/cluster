@@ -50,28 +50,26 @@ in {
   # Enable the X11 windowing system.
   services.xserver.enable = true;
   services.xserver.layout = "us";
-  # Enable touchpad support.
-  services.xserver.libinput.enable = true;
 
   # resolve master hostname
-  networking.extraHosts = "${kubeMasterIP} ${kubeMasterHostname}";
+  # networking.extraHosts = "${kubeMasterIP} ${kubeMasterHostname}";
 
-  # packages for administration tasks
-  environment.systemPackages = with pkgs; [ kompose kubectl kubernetes ];
+  # # packages for administration tasks
+  # environment.systemPackages = with pkgs; [ kompose kubectl kubernetes ];
 
-  services.kubernetes = {
-    roles = [ "master" "node" ];
-    masterAddress = kubeMasterHostname;
-    easyCerts = true;
-    apiserver = {
-      securePort = kubeMasterAPIServerPort;
-      advertiseAddress = kubeMasterIP;
-    };
+  # services.kubernetes = {
+  #   roles = [ "master" "node" ];
+  #   masterAddress = kubeMasterHostname;
+  #   easyCerts = true;
+  #   apiserver = {
+  #     securePort = kubeMasterAPIServerPort;
+  #     advertiseAddress = kubeMasterIP;
+  #   };
 
-    # use coredns
-    addons.dns.enable = true;
+  #   # use coredns
+  #   addons.dns.enable = true;
 
-    # needed if you use swap
-    kubelet.extraOpts = "--fail-swap-on=false";
-  };
+  #   # needed if you use swap
+  #   kubelet.extraOpts = "--fail-swap-on=false";
+  # };
 }
