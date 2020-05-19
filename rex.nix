@@ -3,11 +3,11 @@
   imports = [ # Include the results of the hardware scan.
     ./base-configuration.nix
     ./modules/qemu.nix
-    (<nixpkgs> + "/nixos/modules/services/cluster/k3s")
+    # (<nixpkgs> + "/nixos/modules/services/cluster/k3s")
   ];
 
   # Use k3s from the latest nixpkgs, but otherwise keep a stable system
-  nixpkgs = { overlays = [ (import ./overlays/k3s) ]; };
+  # nixpkgs = { overlays = [ (import ./overlays/k3s) ]; };
 
   networking.firewall.enable = false;
   networking.interfaces.wlp3s0.useDHCP = true;
@@ -43,7 +43,7 @@
     aarch64 = true;
   };
 
-  services.k3s.enable = true;
+  # services.k3s.enable = true;
 
   virtualisation.libvirtd.enable = true;
 
