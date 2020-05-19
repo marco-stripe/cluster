@@ -7,7 +7,10 @@
   ];
 
   # Use k3s from the latest nixpkgs, but otherwise keep a stable system
-  nixpkgs = { overlays = [ (import ./overlays/k3s) ]; };
+  nixpkgs = {
+    overlays = [ (import ./overlays/k3s) ];
+    config.allowUnfree = true;
+  };
 
   networking.interfaces.wlp3s0.useDHCP = true;
   networking.wireless.interfaces = [ "wlp3s0" ];
