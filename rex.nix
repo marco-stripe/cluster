@@ -3,7 +3,7 @@
   imports = [ # Include the results of the hardware scan.
     ./base-configuration.nix
     ./modules/qemu.nix
-    # ./nixpkgs/nixos/modules/services/cluster/k3s
+    <nixpkgs>/nixos/modules/services/cluster/k3s
   ];
 
   # Use k3s from the latest nixpkgs, but otherwise keep a stable system
