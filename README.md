@@ -29,6 +29,11 @@ Each machine has its configuration defined as:
 args@{ config, pkgs, options, ... }: import ./cluster/<machine-specific-config>.nix args
 ```
 
-4. Initially load the configuration: `sudo nixos-rebuild test`
+4. Add your secrets to `/etc/nixos/secrets.nix`. e.g.:
+```
+echo '{wifi = "secret";}' > secrets.nix
+```
+
+5. Initially load the configuration: `sudo nixos-rebuild test`
 
 Done!
