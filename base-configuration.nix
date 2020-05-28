@@ -36,6 +36,7 @@ in {
     publish.domain = true;
     publish.addresses = true;
     publish.enable = true;
+    publish.workstation = true;
     publish.userServices = true;
     nssmdns = true;
   };
