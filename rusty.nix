@@ -66,11 +66,11 @@
       ips = [ "12.10.0.1/24" ];
 
       postSetup = ''
-        iptables -t nat -A POSTROUTING -s 12.10.0.0/24 -o eth0 -j MASQUERADE
+        ${pkgs.iptables} -t nat -A POSTROUTING -s 12.10.0.0/24 -o eth0 -j MASQUERADE
       '';
 
       postShutdown = ''
-        iptables -t nat -D POSTROUTING -s 12.10.0.0/24 -o eth0 -j MASQUERADE
+        ${pkgs.iptables} -t nat -D POSTROUTING -s 12.10.0.0/24 -o eth0 -j MASQUERADE
       '';
 
       # The port that Wireguard listens to. Must be accessible by the client.
