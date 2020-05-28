@@ -27,7 +27,7 @@
   time.timeZone = "America/Los_Angeles";
 
   # List packages installed in system profile. To search, run:
-  environment.systemPackages = with pkgs; [ wget vim git zsh ];
+  environment.systemPackages = with pkgs; [ wget vim git zsh iptables ];
 
   users.users.marco = {
     isNormalUser = true;
