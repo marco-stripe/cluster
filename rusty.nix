@@ -91,10 +91,10 @@
           # List of IPs assigned to this peer within the tunnel subnet. Used to configure routing.
           allowedIPs = [ "12.10.0.2/32" ];
         }
-        # { # John Doe
-        #   publicKey = "{john doe's public key}";
-        #   allowedIPs = [ "10.100.0.3/32" ];
-        # }
+        { # John Doe
+          publicKey = "BUBssl8c2OmdHOiYx2sum/47t7BI8IQQbjhiZI559RQ=";
+          allowedIPs = [ "12.10.0.3/32" ];
+        }
       ];
     };
   };
