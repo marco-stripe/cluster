@@ -55,6 +55,12 @@
     ];
   };
 
+  # We're running a micro instance, so it's really useful to have a swap file
+  swapDevices = [{
+    device = "/swapfile2G";
+    size = 2048;
+  }];
+
   networking.nat.enable = true;
   networking.nat.externalInterface = "eth0";
   networking.nat.internalInterfaces = [ "wg0" ];
