@@ -37,6 +37,7 @@ in {
   # services.k3s.enable = true;
 
   virtualisation.libvirtd.enable = true;
+  hardware.parallels.enable = true;
 
   # programs.gnupg.agent = {
   #   enable = true;
