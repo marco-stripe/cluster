@@ -44,7 +44,14 @@ in {
   # };
 
   # Enable the KDE Desktop Environment.
-  services.xserver.displayManager.sddm.enable = true;
+  services.xserver.displayManager.sddm = {
+    enable = true;
+    autoLogin = {
+      enable = true;
+      user = "marco";
+    };
+  };
+
   services.xserver.desktopManager.plasma5.enable = true;
 
   # Enable the X11 windowing system.
