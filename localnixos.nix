@@ -37,7 +37,9 @@ in {
   # services.k3s.enable = true;
 
   virtualisation.libvirtd.enable = true;
-  hardware.parallels.enable = true;
+
+  # Broken: see https://github.com/NixOS/nixpkgs/issues/79280
+  # hardware.parallels.enable = true;
 
   # programs.gnupg.agent = {
   #   enable = true;
