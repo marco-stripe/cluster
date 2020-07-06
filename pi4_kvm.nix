@@ -12,7 +12,8 @@
 # 5. rm -rf /boot/*
 # 6. mv ~/boot-new/* /boot/
 
-{ config, pkgs, ... }: {
+{ config, pkgs, ... }:
+let secrets = import ../secrets.nix in {
   networking.hostName = "pi4"; # Define your hostname.
   imports = [ ./pi4_hardware_config.nix ./home-manager/nixos ];
 
@@ -39,6 +40,7 @@
   }];
 
   networking.interfaces.wlan0.useDHCP = true;
+  networking.interfaces.eth0.useDHCP = true;
   networking.wireless.interfaces = [ "wlan0" ];
 
   environment.systemPackages = (with pkgs; [ home-manager wget vim git zsh ]);
@@ -70,7 +72,7 @@
   networking.useDHCP = false;
 
   networking.wireless.networks = {
-    "07d931_5g" = { psk = "***REMOVED***"; };
+    "Dinner Plans" = { psk = secrets.wifi; };
   };
 
   security.sudo.wheelNeedsPassword = false;
