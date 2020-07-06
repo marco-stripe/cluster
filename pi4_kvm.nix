@@ -112,7 +112,8 @@ let secrets = import ../secrets.nix; in {
   services.cron = {
     enable = true;
     systemCronJobs = [
-      "*/1 * * * *      root    . /etc/profile; cd /etc/nixos/cluster && git pull >> /tmp/cron.log  2>&1"
+      "*/1 * * * *      root    . /etc/profile; cd /etc/nixos/cluster && git pull >> /tmp/cron.log 2>&1"
+      "15 * * * *       marco  HONEYCOMB_API_KEY=${secrets.honeycomb_api_key} /home/marco/fast-honeycomb-reporter >> /tmp/hc-reporter.log 2>&1"
     ];
   };
 
