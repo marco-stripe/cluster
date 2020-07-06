@@ -13,7 +13,7 @@
 # 6. mv ~/boot-new/* /boot/
 
 { config, pkgs, ... }:
-let secrets = import ../secrets.nix in {
+let secrets = import ../secrets.nix; in {
   networking.hostName = "pi4"; # Define your hostname.
   imports = [ ./pi4_hardware_config.nix ./home-manager/nixos ];
 
