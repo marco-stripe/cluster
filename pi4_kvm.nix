@@ -13,7 +13,10 @@
 # 6. mv ~/boot-new/* /boot/
 
 { config, pkgs, ... }:
-let secrets = import ../secrets.nix; in {
+let
+secrets = import ../secrets.nix;
+fast-honeycomb-reporter = (import ./fast-honeycomb-reporter.nix) { inherit pkgs; };
+in {
   networking.hostName = "pi4"; # Define your hostname.
   imports = [ ./pi4_hardware_config.nix ./home-manager/nixos ];
 
@@ -43,7 +46,7 @@ let secrets = import ../secrets.nix; in {
   networking.interfaces.eth0.useDHCP = true;
   networking.wireless.interfaces = [ "wlan0" ];
 
-  environment.systemPackages = (with pkgs; [ home-manager wget vim git zsh ]);
+  environment.systemPackages = (with pkgs; [ home-manager wget vim git zsh fast-honeycomb-reporter]);
 
   boot = {
     kernelPackages = pkgs.linuxPackages_rpi4_kvm;
@@ -113,7 +116,7 @@ let secrets = import ../secrets.nix; in {
     enable = true;
     systemCronJobs = [
       "*/1 * * * *      root    . /etc/profile; cd /etc/nixos/cluster && git pull >> /tmp/cron.log 2>&1"
-      "15 * * * *       marco  HONEYCOMB_API_KEY=${secrets.honeycomb_api_key} /home/marco/fast-honeycomb-reporter >> /tmp/hc-reporter.log 2>&1"
+      "15 * * * *       marco  HONEYCOMB_API_KEY=${secrets.honeycomb_api_key} ${fast-honeycomb-reporter}/bin/fast-honeycomb-reporter >> /tmp/hc-reporter.log 2>&1"
     ];
   };
 
