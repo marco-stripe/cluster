@@ -120,7 +120,6 @@ in {
     ];
   };
   # Enable the X11 windowing system & XFCE.
-  services.xserver.enable = true;
   services.xserver = {
     enable = true;
     layout = "us";
