@@ -119,14 +119,17 @@ in {
       "15 * * * *       marco  HONEYCOMB_API_KEY=${secrets.honeycomb_api_key} ${fast-honeycomb-reporter}/bin/fast-honeycomb-reporter >> /tmp/hc-reporter.log 2>&1"
     ];
   };
-
-  # Enable the KDE Desktop Environment.
-  services.xserver.displayManager.sddm.enable = true;
-  services.xserver.desktopManager.plasma5.enable = true;
-
-  # Enable the X11 windowing system.
+  # Enable the X11 windowing system & XFCE.
   services.xserver.enable = true;
-  services.xserver.layout = "us";
+  services.xserver = {
+    enable = true;
+    layout = "us";
+    desktopManager = {
+      default = "xfce";
+      xterm.enable = false;
+      xfce.enable = true;
+    };
+  };
 
   # This value determines the NixOS release from which the default
   # settings for stateful data, like file locations and database versions
