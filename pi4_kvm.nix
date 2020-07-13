@@ -14,8 +14,9 @@
 
 { config, pkgs, ... }:
 let
-secrets = import ../secrets.nix;
-fast-honeycomb-reporter = (import ./fast-honeycomb-reporter.nix) { inherit pkgs; };
+  secrets = import ../secrets.nix;
+  fast-honeycomb-reporter =
+    (import ./fast-honeycomb-reporter.nix) { inherit pkgs; };
 in {
   networking.hostName = "pi4"; # Define your hostname.
   imports = [ ./pi4_hardware_config.nix ./home-manager/nixos ];
@@ -46,7 +47,8 @@ in {
   networking.interfaces.eth0.useDHCP = true;
   networking.wireless.interfaces = [ "wlan0" ];
 
-  environment.systemPackages = (with pkgs; [ home-manager wget vim git zsh fast-honeycomb-reporter]);
+  environment.systemPackages =
+    (with pkgs; [ home-manager wget vim git zsh fast-honeycomb-reporter ]);
 
   boot = {
     kernelPackages = pkgs.linuxPackages_rpi4_kvm;
@@ -74,9 +76,7 @@ in {
 
   networking.useDHCP = false;
 
-  networking.wireless.networks = {
-    "Dinner Plans" = { psk = secrets.wifi; };
-  };
+  networking.wireless.networks = { "Dinner Plans" = { psk = secrets.wifi; }; };
 
   security.sudo.wheelNeedsPassword = false;
 
@@ -119,6 +119,14 @@ in {
       "15 * * * *       marco  HONEYCOMB_API_KEY=${secrets.honeycomb_api_key} ${fast-honeycomb-reporter}/bin/fast-honeycomb-reporter >> /tmp/hc-reporter.log 2>&1"
     ];
   };
+
+  # Enable the KDE Desktop Environment.
+  services.xserver.displayManager.sddm.enable = true;
+  services.xserver.desktopManager.plasma5.enable = true;
+
+  # Enable the X11 windowing system.
+  services.xserver.enable = true;
+  services.xserver.layout = "us";
 
   # This value determines the NixOS release from which the default
   # settings for stateful data, like file locations and database versions
