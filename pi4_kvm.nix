@@ -5,12 +5,10 @@
 # nix-build -j0 '<nixpkgs/nixos>' -A config.system -I nixos-config=./pi4_kvm.nix -I nixpkgs=~/localnix/local-nixpkgs -I nixpkgs-overlays=./overlays/rpi4 --argstr system aarch64-linux --builders 'ssh://builder aarch64-linux'
 #
 # Updating the boot config:
-# 1. umount /boot
-# 2. nixos-rebuild switch
-# 3. cp -r /boot ~/boot-new
-# 4. mount /dev/mmcblk0p1 /boot
-# 5. rm -rf /boot/*
-# 6. mv ~/boot-new/* /boot/
+# 1. nixos-rebuild test # Make sure the config works
+# 2. cp -r /boot ~/boot-new # Backup just in case
+# 3. rm -rf /boot/*
+# 4. nixos-rebuild switch
 
 { config, pkgs, ... }:
 let
@@ -57,6 +55,9 @@ in {
       raspberryPi = {
         enable = true;
         version = 4;
+        firmwareConfig = ''
+          gpu_mem=192
+        '';
       };
     };
   };
@@ -119,16 +120,50 @@ in {
       "15 * * * *       marco  HONEYCOMB_API_KEY=${secrets.honeycomb_api_key} ${fast-honeycomb-reporter}/bin/fast-honeycomb-reporter >> /tmp/hc-reporter.log 2>&1"
     ];
   };
-  # Enable the X11 windowing system & XFCE.
+
+  hardware.bluetooth = {
+    enable = true;
+  };
+  systemd.services.btattach = {
+    before = [ "bluetooth.service" ];
+    after = [ "dev-ttyAMA0.device" ];
+    wantedBy = [ "multi-user.target" ];
+    serviceConfig = {
+      ExecStart = "${pkgs.bluez}/bin/btattach -B /dev/ttyAMA0 -P bcm -S 3000000";
+    };
+  };
+
+  hardware.opengl = {
+    enable = true;
+    setLdLibraryPath = true;
+    package = pkgs.mesa_drivers;
+  };
+  hardware.deviceTree = {
+    base = pkgs.device-tree_rpi;
+    overlays = [ "${pkgs.device-tree_rpi.overlays}/vc4-fkms-v3d.dtbo" ];
+  };
+
   services.xserver = {
     enable = true;
     layout = "us";
+    displayManager.lightdm = {
+      enable = true;
+      autoLogin = {
+        enable = true;
+        user = "marco";
+      };
+    };
     desktopManager = {
-      default = "xfce";
       xterm.enable = false;
+      # plasma5.enable = true;
       xfce.enable = true;
     };
+
+    # windowManager.i3.enable = true;
+    videoDrivers = [ "fbdev" ];
   };
+
+  hardware.enableRedistributableFirmware = true;
 
   # This value determines the NixOS release from which the default
   # settings for stateful data, like file locations and database versions
