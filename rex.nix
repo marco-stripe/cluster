@@ -1,4 +1,6 @@
-{ config, pkgs, ... }: {
+{ config, pkgs, ... }:
+let spotifydConf = pkgs.writeText "spotifyd.conf" "";
+in {
   networking.hostName = "rex"; # Define your hostname.
   imports = [ # Include the results of the hardware scan.
     ./base-configuration.nix
@@ -6,8 +8,36 @@
     # (<nixpkgs> + "/nixos/modules/services/cluster/k3s")
   ];
 
-  # Use k3s from the latest nixpkgs, but otherwise keep a stable system
-  # nixpkgs = { overlays = [ (import ./overlays/k3s) ]; };
+  sound.enable = true;
+  hardware.pulseaudio.enable = true;
+  hardware.pulseaudio.systemWide = true;
+
+  # Unfortunately this doesn't work because the dynamic user used by this config doesn't get pulseaudio permissions :(
+  # services.spotifyd.enable = true;
+
+  systemd.services.spotifyd = {
+    wantedBy = [ "multi-user.target" ];
+    after = [ "network-online.target" "sound.target" ];
+    description = "spotifyd, a Spotify playing daemon";
+    serviceConfig = {
+      ExecStart =
+        "${pkgs.spotifyd}/bin/spotifyd --no-daemon --cache-path /var/cache/spotifyd --config-path ${spotifydConf}";
+      Restart = "always";
+      RestartSec = 12;
+      User = "shairport";
+      CacheDirectory = "spotifyd";
+      SupplementaryGroups = [ "audio" ];
+    };
+  };
+
+  services.shairport-sync = {
+    enable = true;
+    user = "shairport";
+    arguments = "-v -o pa";
+  };
+  users.users.shairport = {
+    extraGroups = [ "audio" ]; # Enable ‘sudo’ for the user.
+  };
 
   networking.firewall.enable = false;
   networking.interfaces.wlp3s0.useDHCP = true;
