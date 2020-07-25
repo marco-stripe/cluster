@@ -101,6 +101,7 @@ in {
     createHome = true;
     openssh.authorizedKeys.keys = [
       "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIPs7qqifLNNLNvjBKmsgTefmxLO0tstGBfZ4BXv3KmDn marcomunizaga@marco-mbp"
+      "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIIJYbMiOSY6kaT7sZCDH5Uoifj+aniBvePenOr48q32N marco@st-marco1"
     ];
   };
   programs.zsh.enable = true;
