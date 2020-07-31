@@ -82,6 +82,7 @@ in {
     enableSSHSupport = true;
     pinentryFlavor = "gnome3";
   };
+  programs.mosh.enable = true;
 
   # Enable the KDE Desktop Environment.
   services.xserver.displayManager.sddm.enable = true;
